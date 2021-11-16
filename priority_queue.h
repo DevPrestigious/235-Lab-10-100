@@ -36,6 +36,8 @@ namespace custom
         //
         // construct
         //
+
+        // Jon
         priority_queue()
         {
         }
@@ -45,6 +47,8 @@ namespace custom
         priority_queue(priority_queue&& rhs)
         {
         }
+
+        // Steve
         template <class Iterator>
         priority_queue(Iterator first, Iterator last)
         {
@@ -58,23 +62,23 @@ namespace custom
         ~priority_queue() {}
 
         //
-        // Access
+        // Access | Done
         //
         const T& top() const;
 
         //
-        // Insert
+        // Insert | Done
         //
         void  push(const T& t);
         void  push(T&& t);
 
         //
-        // Remove
+        // Remove -- Shaun
         //
         void  pop();
 
         //
-        // Status
+        // Status | Done
         //
         size_t size()  const
         {
@@ -104,7 +108,8 @@ namespace custom
     template <class T>
     const T& priority_queue <T> ::top() const
     {
-        return *(new T);
+        //return *(new T);
+        return container[size() - 1];
     }
 
     /**********************************************
@@ -114,6 +119,8 @@ namespace custom
     template <class T>
     void priority_queue <T> ::pop()
     {
+        /*if (!empty())
+            container.erase(container.begin() + (size() - 1));*/
     }
 
     /*****************************************
@@ -123,10 +130,12 @@ namespace custom
     template <class T>
     void priority_queue <T> ::push(const T& t)
     {
+        container.push_back(t);
     }
     template <class T>
     void priority_queue <T> ::push(T&& t)
     {
+        container.push_back(std::move(t));
     }
 
     /************************************************
@@ -147,4 +156,5 @@ template <class T>
 inline void swap(custom::priority_queue <T>& lhs,
     custom::priority_queue <T>& rhs)
 {
+
 }
