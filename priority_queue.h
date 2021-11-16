@@ -55,15 +55,9 @@ namespace custom
             for (auto c = first; c != last; c++)
                 push(*c);
         }
-        explicit priority_queue(custom::vector<T>&& rhs)
-        {
-        }
-        explicit priority_queue(custom::vector<T>& rhs)
-        {
-        }
-        ~priority_queue() 
-        {
-        }
+        explicit priority_queue(custom::vector<T>&& rhs) { container = std::move(rhs); }
+        explicit priority_queue(custom::vector<T>& rhs) { container = rhs; }
+        ~priority_queue() { container.clear(); }
 
         //
         // Access
@@ -112,7 +106,7 @@ namespace custom
     template <class T>
     const T& priority_queue <T> ::top() const
     {
-        return container[size() - 1];
+        return container.front(); 
     }
 
     /**********************************************
