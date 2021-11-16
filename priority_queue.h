@@ -13,7 +13,7 @@
  *    This will contain the class definition of:
  *        priority_queue          : A class that represents a Priority Queue
  * Author
- *    Stephen Costigan
+ *    Stephen Costigan, Alexander Dohms
  ************************************************************************/
 
 #pragma once
@@ -36,8 +36,6 @@ namespace custom
         //
         // construct
         //
-
-        // Jon
         priority_queue()
         {
         }
@@ -47,8 +45,6 @@ namespace custom
         priority_queue(priority_queue&& rhs)
         {
         }
-
-        // Steve
         template <class Iterator>
         priority_queue(Iterator first, Iterator last)
         {
@@ -62,23 +58,23 @@ namespace custom
         ~priority_queue() {}
 
         //
-        // Access | Done
+        // Access
         //
         const T& top() const;
 
         //
-        // Insert | Done
+        // Insert
         //
         void  push(const T& t);
         void  push(T&& t);
 
         //
-        // Remove -- Shaun
+        // Remove
         //
         void  pop();
 
         //
-        // Status | Done
+        // Status
         //
         size_t size()  const
         {
@@ -108,8 +104,7 @@ namespace custom
     template <class T>
     const T& priority_queue <T> ::top() const
     {
-        //return *(new T);
-        return container[size() - 1];
+        return *(new T);
     }
 
     /**********************************************
@@ -119,8 +114,6 @@ namespace custom
     template <class T>
     void priority_queue <T> ::pop()
     {
-        /*if (!empty())
-            container.erase(container.begin() + (size() - 1));*/
     }
 
     /*****************************************
@@ -130,12 +123,10 @@ namespace custom
     template <class T>
     void priority_queue <T> ::push(const T& t)
     {
-        container.push_back(t);
     }
     template <class T>
     void priority_queue <T> ::push(T&& t)
     {
-        container.push_back(std::move(t));
     }
 
     /************************************************
@@ -156,5 +147,4 @@ template <class T>
 inline void swap(custom::priority_queue <T>& lhs,
     custom::priority_queue <T>& rhs)
 {
-
 }
