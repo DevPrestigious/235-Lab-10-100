@@ -125,25 +125,20 @@ namespace custom
     template <class T>
     void priority_queue <T> ::push(const T& t)
     {
-        if(!empty())
-            for (int i = 0; i < size(); i++) {
-                if ((container[i]-1) > t)
-                    container.push_back(t);
-            }
-        else
-            container.push_back(t);
+        container.push_back(t);
+        size_t i = size() / 2;
+        while (i = size()/2 && percolateDown(i)) {
+            i /= 2;
+        }
     }
     template <class T>
     void priority_queue <T> ::push(T&& t)
     {
-        if (!empty())
-            for (int i = 0; i < size(); i++) {
-                if((container[i] - 1) < t)
-                    container.push_back(std::move(t)); 
-            }
-        else
-            container.push_back(t);
-        
+        container.push_back(t);
+        size_t i = size() / 2;
+        while (i = size() / 2 && percolateDown(i)) {
+            i /= 2;
+        }
     }
 
     /************************************************
