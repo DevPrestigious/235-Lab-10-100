@@ -78,11 +78,11 @@ namespace custom
         //
         size_t size()  const
         {
-            return 99;
+            return container.size();
         }
         bool empty() const
         {
-            return false;
+            return container.empty();
         }
 
 #ifdef DEBUG // make this visible to the unit tests
