@@ -127,18 +127,16 @@ namespace custom
     {
         container.push_back(t);
         size_t i = size() / 2;
-        while (i = size()/2 && percolateDown(i)) {
+        while (i = size()/2 && percolateDown(i))
             i /= 2;
-        }
     }
     template <class T>
     void priority_queue <T> ::push(T&& t)
     {
         container.push_back(t);
         size_t i = size() / 2;
-        while (i = size() / 2 && percolateDown(i)) {
+        while (i = size() / 2 && percolateDown(i))
             i /= 2;
-        }
     }
 
     /************************************************
