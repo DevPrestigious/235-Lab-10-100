@@ -36,6 +36,8 @@ namespace custom
         //
         // construct
         //
+
+        // Jon
         priority_queue()
         {
         }
@@ -45,6 +47,8 @@ namespace custom
         priority_queue(priority_queue&& rhs)
         {
         }
+
+        // Steve
         template <class Iterator>
         priority_queue(Iterator first, Iterator last)
         {
@@ -57,7 +61,9 @@ namespace custom
         explicit priority_queue(custom::vector<T>& rhs)
         {
         }
-        ~priority_queue() {}
+        ~priority_queue() 
+        {
+        }
 
         //
         // Access
@@ -71,7 +77,7 @@ namespace custom
         void  push(T&& t);
 
         //
-        // Remove
+        // Remove -- Shaun
         //
         void  pop();
 
@@ -106,7 +112,7 @@ namespace custom
     template <class T>
     const T& priority_queue <T> ::top() const
     {
-        return *(new T);
+        return container[size() - 1];
     }
 
     /**********************************************
