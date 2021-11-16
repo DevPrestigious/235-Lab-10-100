@@ -48,6 +48,8 @@ namespace custom
         template <class Iterator>
         priority_queue(Iterator first, Iterator last)
         {
+            for (auto c = first; c != last; c++)
+                push(*c);
         }
         explicit priority_queue(custom::vector<T>&& rhs)
         {
@@ -123,10 +125,12 @@ namespace custom
     template <class T>
     void priority_queue <T> ::push(const T& t)
     {
+        container.push_back(t);
     }
     template <class T>
     void priority_queue <T> ::push(T&& t)
     {
+        container.push_back(std::move(t)); 
     }
 
     /************************************************
