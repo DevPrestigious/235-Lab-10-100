@@ -106,7 +106,14 @@ namespace custom
     template <class T>
     const T& priority_queue <T> ::top() const
     {
-        return container.front(); 
+        T r;
+        try {
+            r = container.front();
+        }
+        catch (std::out_of_range& e) {
+            std::cout << e.what();
+        }
+        return r;
     }
 
     /**********************************************
