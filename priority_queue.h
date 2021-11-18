@@ -38,13 +38,13 @@ namespace custom
         //
 
         // Jon
-        priority_queue()
+        priority_queue() : numCapacity(0), numElements(0), data(NULL)
         {
         }
-        priority_queue(const priority_queue& rhs)
+        priority_queue(const priority_queue& rhs)   throw (const char*);
         {
         }
-        priority_queue(priority_queue&& rhs)
+        priority_queue(priority_queue&& rhs)        throw (const char*);
         {
         }
 
