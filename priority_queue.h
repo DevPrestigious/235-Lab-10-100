@@ -108,6 +108,9 @@ namespace custom
             return container.empty();
         }
 
+        inline void swap(custom::priority_queue <T>& lhs,
+           custom::priority_queue <T>& rhs);
+
 #ifdef DEBUG // make this visible to the unit tests
     public:
 #else
@@ -175,6 +178,8 @@ namespace custom
             i /= 2;
     }
 
+   
+
     /************************************************
      * P QUEUE :: PERCOLATE DOWN
      * The item at the passed index may be out of heap
@@ -211,21 +216,24 @@ namespace custom
         }
         else if (container[indexLeft] > container[indexHeap])
         {
-            //swap(index, indexLeft);//if in include this it breaks
+            swap(index, indexLeft);//if in include this it breaks
             percolateDown(indexLeft);
         }
         return false;
     }
 
+
+
+
 };
 
 template <class T>
 inline void swap(custom::priority_queue <T>& lhs,
-    custom::priority_queue <T>& rhs)
+   custom::priority_queue <T>& rhs)
 {
    //I'm pretty sure we need a swap function similar to this. | Alexander
    auto tempdata = std::move(rhs.container);
    rhs.container = std::move(lhs.container);
    lhs.container = std::move(tempdata);
-    
+
 }
