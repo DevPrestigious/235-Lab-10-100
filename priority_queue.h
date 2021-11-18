@@ -38,14 +38,33 @@ namespace custom
         //
 
         // Jon
-        priority_queue() : numCapacity(0), numElements(0), data(NULL)
+        priority_queue() {container.resize(0); }
+       
+        priority_queue(const priority_queue& rhs) { *this = rhs;  }  //throw (const char*);
+        
+        priority_queue(priority_queue&& rhs) { *this = std::move(rhs); }      //throw (const char*);
+
+        priority_queue(priority_queue first, priority_queue last)
         {
+           container.reserve(first - last);
+           for (siz i = 0; i < length; i++)
+           {
+
+           }
         }
-        priority_queue(const priority_queue& rhs)   //throw (const char*);
+        
+        //Overloads for  our copy constructor | Alexander
+        priority_queue& operator = (const priority_queue& rhs)
         {
+           container = std::move(rhs.container);
+           return *this;
         }
-        priority_queue(priority_queue&& rhs)       //throw (const char*);
+
+        //Overloads for our move constructor | Alexander
+        priority_queue& operator = (priority_queue&& rhs)
         {
+           container = std::move(rhs.container);
+           return *this;
         }
 
         // Steve
@@ -164,4 +183,8 @@ template <class T>
 inline void swap(custom::priority_queue <T>& lhs,
     custom::priority_queue <T>& rhs)
 {
+   //I'm pretty sure we need a swap function similar to this. | Alexander
+   /*custom::vector <T> tempdata = std::move(rhs.container);
+   rhs.container = std::move(container);
+   container = std::move(tempdata);*/
 }
