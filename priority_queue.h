@@ -224,10 +224,8 @@ inline void swap(custom::priority_queue <T>& lhs,
     custom::priority_queue <T>& rhs)
 {
    //I'm pretty sure we need a swap function similar to this. | Alexander
-   /*custom::vector <T> tempdata = std::move(rhs.container);
-   rhs.container = std::move(container);
-   container = std::move(tempdata);*/
-    auto temp = lhs;
-    //lhs = rhs;
-    //rhs = temp;
+   auto tempdata = std::move(rhs.container);
+   rhs.container = std::move(lhs.container);
+   lhs.container = std::move(tempdata);
+    
 }
