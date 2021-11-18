@@ -38,16 +38,16 @@ namespace custom
         //
         // Jon
         priority_queue() {container.resize(0); }
-        priority_queue(const priority_queue& rhs) { *this = rhs;  }                                      //throw (const char*); Copy Constructor
-        priority_queue(priority_queue&& rhs) { *this = std::move(rhs); }                                 //throw (const char*); Move Constructor
+        priority_queue(const priority_queue& rhs) { *this = rhs;  }                                      // throw (const char*); Copy Constructor
+        priority_queue(priority_queue&& rhs) { *this = std::move(rhs); }                                 // throw (const char*); Move Constructor
         template <class Iterator>
         priority_queue(Iterator first, Iterator last) { for (auto c = first; c != last; c++) push(*c); } // Range Constructor
         explicit priority_queue(custom::vector<T>&& rhs) { container = std::move(rhs); }                 // Explicit Move Constructor
         explicit priority_queue(custom::vector<T>& rhs) { container = rhs; }                             // Explicit Copy Constructor
-        ~priority_queue() { container.clear(); }                                                         //Deconstructor
+        ~priority_queue() { container.clear(); }                                                         // Deconstructor
 
         //
-        //Overloads for  our copy constructor | Alexander
+        // Overloads for  our copy constructor | Alexander
         // Copy Overload
         priority_queue& operator = (const priority_queue& rhs)
         {
