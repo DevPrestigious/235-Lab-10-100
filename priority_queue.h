@@ -38,7 +38,7 @@ namespace custom
         //
 
         // Jon
-        priority_queue() : numCapacity(0), numElements(0), data(NULL)
+        priority_queue() : container.numCapacity(0), container.numElements(0), container.data(NULL)
         {
         }
         priority_queue(const priority_queue& rhs)   //throw (const char*);
