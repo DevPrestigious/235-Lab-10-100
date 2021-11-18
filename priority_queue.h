@@ -45,15 +45,15 @@ namespace custom
         priority_queue(priority_queue&& rhs) { *this = std::move(rhs); }      //throw (const char*);
 
         //Our range constructor. Needs work.
-        /*priority_queue(priority_queue first, priority_queue last)
-        priority_queue() //: numCapacity(0), numElements(0), data(NULL)
+        priority_queue(priority_queue first, priority_queue last)
+  
         {
-           container.reserve(first - last);
+           /*container.reserve(first - last);
            for (siz i = 0; i < length; i++)
            {
 
-           }
-        }*/
+           }*/
+        }
         
         //Overloads for  our copy constructor | Alexander
         priority_queue& operator = (const priority_queue& rhs)
