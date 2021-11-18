@@ -205,8 +205,6 @@ namespace custom
         //        percolateDown(indexLeft)
         auto indexLeft = indexHeap * 2;
         auto indexRight = indexLeft + 1;
-        auto index = 1; //not sure what this is suppose to be
-        
         if (indexRight <= container.numElements &&      
             container[indexRight] > container[indexLeft] &&
             container[indexRight] > container[indexHeap])            
@@ -214,11 +212,11 @@ namespace custom
             //swap(index, indexRight); //if in include this it breaks
             percolateDown(indexRight);
         }
-        else if (container[indexLeft] > container[indexHeap])
-        {
-            swap(index, indexLeft);//if in include this it breaks
-            percolateDown(indexLeft);
-        }
+        //else if (container[indexLeft] > container[indexHeap])
+        //{
+        //    //swap(indexHeap, indexLeft);//if in include this it breaks
+        //    percolateDown(indexLeft);
+        //}
         return false;
     }
 
