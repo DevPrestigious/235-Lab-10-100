@@ -45,11 +45,11 @@ public:
       test_swap_standardEmpty();
       test_swap_emptyStandard();
       test_swap_standardStandard();
-
+      
       // Access
       test_top_empty();
       test_top_standard();
-
+      
       // Insert
       test_push_empty();
       test_push_levelZero();
@@ -61,7 +61,7 @@ public:
       test_pushMove_levelOne();
       test_pushMove_levelTwo();
       test_pushMove_levelThree();
-
+      
       // Remove
       test_pop_empty();
       test_pop_one();

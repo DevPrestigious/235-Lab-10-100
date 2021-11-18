@@ -13,7 +13,7 @@
  *    This will contain the class definition of:
  *        priority_queue          : A class that represents a Priority Queue
  * Author
- *    Stephen Costigan, Alexander Dohms, Jonathan Colwell
+ *    Stephen Costigan, Alexander Dohms, Jonathan Colwell, Shaun Crook
  ************************************************************************/
 
 #pragma once
@@ -38,14 +38,35 @@ namespace custom
         //
 
         // Jon
-        priority_queue() : container.numCapacity(0), container.numElements(0), container.data(NULL)
+        priority_queue() {container.resize(0); }
+       
+        priority_queue(const priority_queue& rhs) { *this = rhs;  }  //throw (const char*);
+        
+        priority_queue(priority_queue&& rhs) { *this = std::move(rhs); }      //throw (const char*);
+
+        //Our range constructor. Needs work.
+        /*priority_queue(priority_queue first, priority_queue last)
+        priority_queue() //: numCapacity(0), numElements(0), data(NULL)
         {
+           container.reserve(first - last);
+           for (siz i = 0; i < length; i++)
+           {
+
+           }
+        }*/
+        
+        //Overloads for  our copy constructor | Alexander
+        priority_queue& operator = (const priority_queue& rhs)
+        {
+           container = std::move(rhs.container);
+           return *this;
         }
-        priority_queue(const priority_queue& rhs)   //throw (const char*);
+
+        //Overloads for our move constructor | Alexander
+        priority_queue& operator = (priority_queue&& rhs)
         {
-        }
-        priority_queue(priority_queue&& rhs)       //throw (const char*);
-        {
+           container = std::move(rhs.container);
+           return *this;
         }
 
         // Steve
@@ -123,6 +144,14 @@ namespace custom
     template <class T>
     void priority_queue <T> ::pop()
     {
+        //priority_queue.pop()
+        //    swap(array[1], array[size()])
+        //    array.pop_back()
+        //    percolateDown(1)
+        //swap(container[1], container[size()]); //if in include this it breaks
+        container.pop_back();
+        percolateDown(1);
+
     }
 
     /*****************************************
@@ -155,6 +184,36 @@ namespace custom
     template <class T>
     bool priority_queue <T> ::percolateDown(size_t indexHeap)
     {
+        //priority_queue.percolateDown(index)
+        //    Find the left childand the right child of index
+        //    indexLeft = index x 2
+        //    indexRight = indexLeft + 1
+        //    If the right child is greater than the parent, then swapand go from there
+        //    IF(indexRight =< num and
+        //        container[indexRight] > container[indexLeft] and
+        //        container[indexRight] > container[index]
+        //      swap(index, indexRight)
+        //      percolateDown(indexRight)
+        //    If the left child is greater than the parent, then swap it
+        //    ELSE IF array[indexLeft] > container[index]
+        //        swap(index, indexLeft)
+        //        percolateDown(indexLeft)
+        auto indexLeft = indexHeap * 2;
+        auto indexRight = indexLeft + 1;
+        auto index = 1; //not sure what this is suppose to be
+        
+        if (indexRight <= container.numElements &&      
+            container[indexRight] > container[indexLeft] &&
+            container[indexRight] > container[indexHeap])            
+        {
+            //swap(index, indexRight); //if in include this it breaks
+            percolateDown(indexRight);
+        }
+        else if (container[indexLeft] > container[indexHeap])
+        {
+            //swap(index, indexLeft);//if in include this it breaks
+            percolateDown(indexLeft);
+        }
         return false;
     }
 
@@ -164,4 +223,9 @@ template <class T>
 inline void swap(custom::priority_queue <T>& lhs,
     custom::priority_queue <T>& rhs)
 {
+   //I'm pretty sure we need a swap function similar to this. | Alexander
+   auto tempdata = std::move(rhs.container);
+   rhs.container = std::move(lhs.container);
+   lhs.container = std::move(tempdata);
+    
 }
