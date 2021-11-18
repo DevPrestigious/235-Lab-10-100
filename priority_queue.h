@@ -201,19 +201,19 @@ namespace custom
         auto indexLeft = indexHeap * 2;
         auto indexRight = indexLeft + 1;
         auto index = 1; //not sure what this is suppose to be
-        auto num = 1;//not sure what this is suppose to be
-        if (indexRight <= num &&      
+        
+        if (indexRight <= container.numElements &&      
             container[indexRight] > container[indexLeft] &&
-            container[indexRight] > container[index])            
+            container[indexRight] > container[indexHeap])            
         {
             //swap(index, indexRight); //if in include this it breaks
             percolateDown(indexRight);
         }
-        //else if (container[indexLeft] > 1)//container[index])
-        //{
-        //    //swap(index, indexLeft);//if in include this it breaks
-        //    percolateDown(indexLeft);
-        //}
+        else if (container[indexLeft] > container[indexHeap])
+        {
+            //swap(index, indexLeft);//if in include this it breaks
+            percolateDown(indexLeft);
+        }
         return false;
     }
 
