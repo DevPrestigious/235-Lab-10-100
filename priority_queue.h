@@ -13,7 +13,7 @@
  *    This will contain the class definition of:
  *        priority_queue          : A class that represents a Priority Queue
  * Author
- *    Stephen Costigan, Alexander Dohms
+ *    Stephen Costigan, Alexander Dohms, Jonathan Colwell
  ************************************************************************/
 
 #pragma once
