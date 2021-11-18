@@ -34,51 +34,33 @@ namespace custom
     public:
 
         //
-        // construct
+        // Constructors
         //
-
         // Jon
         priority_queue() {container.resize(0); }
-       
-        priority_queue(const priority_queue& rhs) { *this = rhs;  }  //throw (const char*);
-        
-        priority_queue(priority_queue&& rhs) { *this = std::move(rhs); }      //throw (const char*);
+        priority_queue(const priority_queue& rhs) { *this = rhs;  }                                      //throw (const char*); Copy Constructor
+        priority_queue(priority_queue&& rhs) { *this = std::move(rhs); }                                 //throw (const char*); Move Constructor
 
-        //Our range constructor. Needs work.
-        /*priority_queue(priority_queue first, priority_queue last)
-        priority_queue() //: numCapacity(0), numElements(0), data(NULL)
-        {
-           container.reserve(first - last);
-           for (siz i = 0; i < length; i++)
-           {
+        template <class Iterator>
+        priority_queue(Iterator first, Iterator last) { for (auto c = first; c != last; c++) push(*c); } // Range Constructor
+        explicit priority_queue(custom::vector<T>&& rhs) { container = std::move(rhs); }                 // Explicit Move Constructor
+        explicit priority_queue(custom::vector<T>& rhs) { container = rhs; }                             // Explicit Copy Constructor
+        ~priority_queue() { container.clear(); }                                                         //Deconstructor
 
-           }
-        }*/
-        
+        //
         //Overloads for  our copy constructor | Alexander
+        // Copy Overload
         priority_queue& operator = (const priority_queue& rhs)
         {
            container = std::move(rhs.container);
            return *this;
         }
-
-        //Overloads for our move constructor | Alexander
+        // Move Overload
         priority_queue& operator = (priority_queue&& rhs)
         {
            container = std::move(rhs.container);
            return *this;
         }
-
-        // Steve
-        template <class Iterator>
-        priority_queue(Iterator first, Iterator last)
-        {
-            for (auto c = first; c != last; c++)
-                push(*c);
-        }
-        explicit priority_queue(custom::vector<T>&& rhs) { container = std::move(rhs); }
-        explicit priority_queue(custom::vector<T>& rhs) { container = rhs; }
-        ~priority_queue() { container.clear(); }
 
         //
         // Access
@@ -107,9 +89,6 @@ namespace custom
         {
             return container.empty();
         }
-
-        inline void swap(custom::priority_queue <T>& lhs,
-           custom::priority_queue <T>& rhs);
 
 #ifdef DEBUG // make this visible to the unit tests
     public:
@@ -219,9 +198,6 @@ namespace custom
         //}
         return false;
     }
-
-
-
 
 };
 
