@@ -67,7 +67,7 @@ public:
       test_pop_one();
       test_pop_two();
       test_pop_standard();
-
+      
       // Status
       test_size_empty();
       test_size_standard();
