@@ -160,16 +160,16 @@ namespace custom
     void priority_queue <T> ::push(const T& t)
     {
         container.push_back(t);
-        size_t i = size() / 2;
-        while (i = size()/2 && percolateDown(i))
+        size_t i = container.size() / 2;
+        while (i /*= container.size()/2*/ && percolateDown(i))
             i /= 2;
     }
     template <class T>
     void priority_queue <T> ::push(T&& t)
     {
         container.push_back(t);
-        size_t i = size() / 2;
-        while (i = size() / 2 && percolateDown(i))
+        size_t i = container.size() / 2;
+        while (i /*= container.size() / 2*/ && percolateDown(i))
             i /= 2;
     }
 
@@ -201,23 +201,29 @@ namespace custom
         auto indexLeft = indexHeap * 2;
         auto indexRight = indexLeft + 1;
         bool change = 0;
-        if (indexRight < container.numElements &&      
+        if (indexLeft > container.size())
+            return change;
+
+        if (indexRight <= container.numElements &&      
             container[indexRight] > container[indexLeft] &&
             container[indexRight] > container[indexHeap])            
         {
             //swap(indexHeap, indexRight); //if in include this it breaks
-            auto temp = container[indexHeap];
-            container[indexHeap] = container[indexRight];
-            container[indexRight] = temp;
+            //auto temp = container[indexHeap];
+            //container[indexHeap] = container[indexRight];
+            //container[indexRight] = temp;
+            std::swap(container[indexHeap], container[indexRight]);
             percolateDown(indexRight);
             change = 1;
         }
-        else if (container[indexLeft] > container[indexHeap])
+        else if(*(container.data+indexLeft) > *(container.data + indexHeap))// (container[indexLeft] > container[indexHeap])
         {
             //swap(container[indexHeap], container[indexLeft]);//if in include this it breaks
-            auto temp = container[indexHeap];
-            container[indexHeap] = container[indexLeft];
-            container[indexLeft] = temp;
+            //auto temp = container[indexHeap];
+            //container[indexHeap] = container[indexLeft];
+            //container[indexLeft] = temp;
+            std::cout << container[indexLeft] << container[indexHeap] << std::endl;
+            std::swap(container[indexHeap], container[indexLeft]);
             percolateDown(indexLeft);
             change = 1;
         }
