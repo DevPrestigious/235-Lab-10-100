@@ -173,7 +173,7 @@ public:
         custom::priority_queue<int> pqSrc;
         setupStandardFixture(pqSrc);
         // exercise
-        std::cout << pqSrc.container[0] << std::endl;
+        
         custom::priority_queue<int>
             pqDest(std::move(pqSrc));
         // verify
