@@ -16,7 +16,7 @@
  *        vector                 : A class that represents a Vector
  *        vector::iterator       : An interator through Vector
  * Author
- *    <your names here>
+ *    Stephen Costigan, Alexander Dohms, Jonathan Colwell, Shaun Crook
  ************************************************************************/
 
 #pragma once
@@ -208,7 +208,7 @@ vector <T> :: vector (const vector & rhs)
         data = nullptr;
         return;
     }
-
+    
     *this = rhs;
 }
 

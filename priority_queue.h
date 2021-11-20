@@ -38,12 +38,15 @@ namespace custom
         //
         // Jon
         priority_queue() {container.resize(0); }
-        priority_queue(const priority_queue& rhs) { *this = rhs;  }                                      // throw (const char*); Copy Constructor
+        priority_queue(const priority_queue& rhs) { this->container = rhs.container;  }                                      // throw (const char*); Copy Constructor
         priority_queue(priority_queue&& rhs) 
         {
-            this->container = (rhs.container);
-           // rhs.container.clear();
-        }                                 // throw (const char*); Move Constructor
+            container = std::move(rhs.container);
+            while (rhs.container.size() != 0)
+            {
+                rhs.container.pop_back();
+            }
+        }                                 
         template <class Iterator>
         priority_queue(Iterator first, Iterator last)                                                    // Range Constructor
         {
@@ -54,21 +57,6 @@ namespace custom
         explicit priority_queue(custom::vector<T>&& rhs) { container = rhs; }                 // Explicit Move Constructor
         explicit priority_queue(custom::vector<T>& rhs) {this->container = rhs;}//container = std::move(rhs); }                             // Explicit Copy Constructor
         ~priority_queue() { container.clear(); }                                                         // Deconstructor
-
-        //
-        // Overloads for  our copy constructor | Alexander
-        // Copy Overload
-        priority_queue& operator = (const priority_queue& rhs)
-        {
-           container = std::move(rhs.container);
-           return *this;
-        }
-        // Move Overload
-        priority_queue& operator = (priority_queue&& rhs)
-        {
-           container = std::move(rhs.container);
-           return *this;
-        }
 
         //
         // Access
@@ -85,12 +73,7 @@ namespace custom
         // Remove -- Shaun
         //
         void  pop();
-        void swap(T posOne, T posTwo)
-        {
-            auto temp = posOne;
-            posOne = posTwo;
-            posTwo = temp;
-        }
+        
         //
         // Status
         //
@@ -122,12 +105,9 @@ namespace custom
     template <class T>
     const T& priority_queue <T> ::top() const
     {
-        T r;
-        
         if (size() > 0)
-            r = container[0];
+            return container[0];
         else throw "std:out_of_range";
-        return r;
     }
 
     /**********************************************
@@ -155,7 +135,7 @@ namespace custom
     {
         container.push_back(t);
         size_t i = container.size() / 2;
-        while (i /*= container.size()/2*/ && percolateDown(i))
+        while (i && percolateDown(i))
             i /= 2;
     }
     template <class T>
@@ -163,7 +143,7 @@ namespace custom
     {
         container.push_back(t);
         size_t i = container.size() / 2;
-        while (i /*= container.size() / 2*/ && percolateDown(i))
+        while (i && percolateDown(i))
             i /= 2;
     }
 
