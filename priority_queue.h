@@ -222,7 +222,7 @@ namespace custom
             //auto temp = container[indexHeap];
             //container[indexHeap] = container[indexLeft];
             //container[indexLeft] = temp;
-            std::cout << container[indexLeft] << container[indexHeap] << std::endl;
+            //std::cout << container[indexLeft] << container[indexHeap] << std::endl;
             std::swap(container[indexHeap], container[indexLeft]);
             percolateDown(indexLeft);
             change = 1;
