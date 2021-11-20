@@ -201,7 +201,7 @@ namespace custom
         auto indexLeft = indexHeap * 2;
         auto indexRight = indexLeft + 1;
         bool change = 0;
-        if (indexLeft > container.size())
+        if (container[indexLeft] > container.size())
             return change;
 
         if (indexRight <= container.numElements &&      
