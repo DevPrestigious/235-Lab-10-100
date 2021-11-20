@@ -78,7 +78,7 @@ public:
       test_percolateDown_nothing();
       test_percolateDown_oneLevel();
       test_percolateDown_twoLevels();
-
+      
       report("PQueue");
    }
 
@@ -173,8 +173,10 @@ public:
       custom::priority_queue<int> pqSrc;
       setupStandardFixture(pqSrc);
       // exercise
-      custom::priority_queue<int> pqDest(std::move(pqSrc));
+      custom::priority_queue<int> 
+          pqDest(std::move(pqSrc));
       // verify
+      std::cout << pqSrc.empty() << std::endl;
       assertEmptyFixture(pqSrc);
       //  +---+---+---+---+---+---+---+---+---+
       //  | 10| 8 | 9 | 4 | 3 | 7 | 5 |   |   |
