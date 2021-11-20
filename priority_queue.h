@@ -39,7 +39,7 @@ namespace custom
         // Jon
         priority_queue() {container.resize(0); }
         priority_queue(const priority_queue& rhs) { *this = rhs;  }                                      // throw (const char*); Copy Constructor
-        priority_queue(priority_queue&& rhs) { *this = std::move(rhs); }                                 // throw (const char*); Move Constructor
+        priority_queue(priority_queue&& rhs) { this->container = std::move(rhs.container); }                                 // throw (const char*); Move Constructor
         template <class Iterator>
         priority_queue(Iterator first, Iterator last)                                                    // Range Constructor
         {
@@ -47,8 +47,8 @@ namespace custom
             for (auto element = first; element != last; ++element)
                 push(*element);
         }
-        explicit priority_queue(custom::vector<T>&& rhs) { container = std::move(rhs); }                 // Explicit Move Constructor
-        explicit priority_queue(custom::vector<T>& rhs) { container = rhs; }                             // Explicit Copy Constructor
+        explicit priority_queue(custom::vector<T>&& rhs) { container = rhs; }                 // Explicit Move Constructor
+        explicit priority_queue(custom::vector<T>& rhs) {this->container = rhs;}//container = std::move(rhs); }                             // Explicit Copy Constructor
         ~priority_queue() { container.clear(); }                                                         // Deconstructor
 
         //
@@ -96,7 +96,7 @@ namespace custom
         }
         bool empty() const
         {
-            return container.empty();
+            return (size() == size_t(0));//container.empty();
         }
 
 #ifdef DEBUG // make this visible to the unit tests
@@ -119,12 +119,10 @@ namespace custom
     const T& priority_queue <T> ::top() const
     {
         T r;
-        try {
-            r = container.front();
-        }
-        catch (std::out_of_range& e) {
-            std::cout << e.what();
-        }
+        
+        if (size() > 0)
+            r = container[0];
+        else throw "std:out_of_range";
         return r;
     }
 
@@ -135,16 +133,8 @@ namespace custom
     template <class T>
     void priority_queue <T> ::pop()
     {
-        //priority_queue.pop()
-        //    swap(array[1], array[size()])
-        //    array.pop_back()
-        //    percolateDown(1)
-        //swap(0, 1);
         if (container.size() != 0) {
-            //swap(0, container[size()]); //if in include this it breaks
-            auto temp = container.front();
-            container.front() = container.back();
-            container.back() = temp;
+            std::swap(container.front(), container.back());
             container.pop_back();
             percolateDown(1);
         }
@@ -184,47 +174,23 @@ namespace custom
     template <class T>
     bool priority_queue <T> ::percolateDown(size_t indexHeap)
     {
-        //priority_queue.percolateDown(index)
-        //    Find the left childand the right child of index
-        //    indexLeft = index x 2
-        //    indexRight = indexLeft + 1
-        //    If the right child is greater than the parent, then swapand go from there
-        //    IF(indexRight =< num and
-        //        container[indexRight] > container[indexLeft] and
-        //        container[indexRight] > container[index]
-        //      swap(index, indexRight)
-        //      percolateDown(indexRight)
-        //    If the left child is greater than the parent, then swap it
-        //    ELSE IF array[indexLeft] > container[index]
-        //        swap(index, indexLeft)
-        //        percolateDown(indexLeft)
-        auto indexLeft = indexHeap * 2;
+        auto indexLeft = ((indexHeap-1) * 2)+1;
         auto indexRight = indexLeft + 1;
         bool change = 0;
-        if (container[indexLeft] > container.size())
-            return change;
 
-        if (indexRight <= container.numElements &&      
+        if (indexRight <= container.numElements - 1 &&      
             container[indexRight] > container[indexLeft] &&
-            container[indexRight] > container[indexHeap])            
+            container[indexRight] > container[indexHeap-1])            
         {
-            //swap(indexHeap, indexRight); //if in include this it breaks
-            //auto temp = container[indexHeap];
-            //container[indexHeap] = container[indexRight];
-            //container[indexRight] = temp;
-            std::swap(container[indexHeap], container[indexRight]);
-            percolateDown(indexRight);
+            std::swap(container[indexHeap-1], container[indexRight]);
+            percolateDown(indexRight + 1);
             change = 1;
         }
-        else if(*(container.data+indexLeft) > *(container.data + indexHeap))// (container[indexLeft] > container[indexHeap])
+        else if(indexLeft <= container.numElements - 1 && 
+            container[indexLeft] > container[indexHeap-1])
         {
-            //swap(container[indexHeap], container[indexLeft]);//if in include this it breaks
-            //auto temp = container[indexHeap];
-            //container[indexHeap] = container[indexLeft];
-            //container[indexLeft] = temp;
-            //std::cout << container[indexLeft] << container[indexHeap] << std::endl;
-            std::swap(container[indexHeap], container[indexLeft]);
-            percolateDown(indexLeft);
+            std::swap(container[indexHeap-1], container[indexLeft]);
+            percolateDown(indexLeft + 1);
             change = 1;
         }
         return change;
@@ -237,10 +203,5 @@ template <class T>
 inline void swap(custom::priority_queue <T>& lhs,
    custom::priority_queue <T>& rhs)
 {
-   //I'm pretty sure we need a swap function similar to this. | Alexander
-   //auto tempdata = std::move(rhs.container);
-   //rhs.container = std::move(lhs.container);
-   //lhs.container = std::move(tempdata);
    lhs.container.swap(rhs.container);
-
 }
