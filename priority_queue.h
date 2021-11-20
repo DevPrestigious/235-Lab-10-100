@@ -39,10 +39,11 @@ namespace custom
         // Jon
         priority_queue() {container.resize(0); }
         priority_queue(const priority_queue& rhs) { *this = rhs;  }                                      // throw (const char*); Copy Constructor
-        priority_queue(priority_queue&& rhs) { 
-            this->container 
-                = 
-                std::move(rhs.container);}                                 // throw (const char*); Move Constructor
+        priority_queue(priority_queue&& rhs) 
+        {
+            this->container = (rhs.container);
+           // rhs.container.clear();
+        }                                 // throw (const char*); Move Constructor
         template <class Iterator>
         priority_queue(Iterator first, Iterator last)                                                    // Range Constructor
         {
